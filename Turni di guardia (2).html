@@ -1,0 +1,103 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turni di guardia</title>
+<style>
+:root{--bg:#fff;--fg:#1c1c1e;--mut:#6b7280;--card:#f3f4f6;--bd:#d6d9de;--acc:#2563eb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181d;--fg:#eceef2;--mut:#9aa1ad;--card:#232730;--bd:#394050;--acc:#6ea0ff}}
+:root[data-theme="dark"]{--bg:#16181d;--fg:#eceef2;--mut:#9aa1ad;--card:#232730;--bd:#394050;--acc:#6ea0ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+#app{max-width:1000px;margin:0 auto;padding:10px}
+h1{font-size:20px;margin:4px 0}h2{font-size:16px;margin:18px 0 6px}
+.leg{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.chip{display:inline-block;background:var(--c);color:#fff;border-radius:5px;padding:1px 5px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.cal .chip{display:block;margin-top:2px;font-size:10px;padding:0 3px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}
+button,select,input{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:4px 8px}
+button{cursor:pointer}button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.hd{text-align:center;color:var(--mut);font-size:11px}
+.d{min-height:76px;background:var(--card);border-radius:6px;padding:3px;border-left:3px solid transparent;overflow:hidden}
+.d.we{border-color:#ef4444}.d.gio{border-color:#f59e0b}.d.mar{border-color:#eab308}
+.d.off{opacity:.35}.n{font-weight:600;font-size:12px}
+.edit .d.on,.edit tr.on{cursor:pointer}
+.sc{overflow-x:auto}table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--bd);padding:4px 6px;text-align:left;vertical-align:top}
+tr.off td{opacity:.4}tr.we td:first-child{border-left:3px solid #ef4444}tr.gio td:first-child{border-left:3px solid #f59e0b}tr.mar td:first-child{border-left:3px solid #eab308}
+td .chip{margin:1px 2px 1px 0}
+.mut{color:var(--mut);font-size:12px}
+.ov{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;z-index:20;padding:12px}
+.box{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;max-width:340px;width:100%;max-height:90%;overflow:auto}
+.ck{display:block;margin:4px 0}.row{display:flex;gap:6px;margin-top:10px}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sy{width:48px;text-align:center}
+@media (max-width:640px){.cal .nm{display:none}.d{min-height:62px}}
+</style></head><body>
+<div id="app" class=""></div><div id="modal" class=""></div>
+<script type="application/json" id="stateData">{"teams":{"A":"Squadra A","B":"Squadra B","C":"Squadra C"},"people":{"Berg":{"n":"Bergonzi","s":"🦁","c":"#ff0000","t":"A"},"Mac":{"n":"Macrì","s":"🐺","c":"#ff8800","t":"A"},"Zapp":{"n":"Zappitello","s":"🦊","c":"#ffea00","t":"A"},"Ange":{"n":"Angemi","s":"🐻","c":"#0ccf54","t":"B"},"Mang":{"n":"Mangia","s":"🐯","c":"#0b6f1f","t":"B"},"Pich":{"n":"Pichierri","s":"🐼","c":"#55bd00","t":"B"},"LaB":{"n":"La Barbera","s":"🦅","c":"#0d00ff","t":"C"},"Rai":{"n":"Raimondo","s":"🐬","c":"#5c79f0","t":"C"},"Rom":{"n":"Romeo","s":"🐢","c":"#51f0e5","t":"C"}},"periods":[{"from":"2026-11-16","to":"2026-12-21"},{"from":"2027-01-08","to":"2027-01-10"}],"guards":{"2026-11-16":["Ange","Mang","Pich"],"2026-11-17":["Berg","Mac","Zapp"],"2026-11-18":["Ange","Mang","Pich"],"2026-11-19":["Berg","Ange","Zapp"],"2026-11-20":["Ange","Mang","Pich"],"2026-11-21":["Berg","LaB","Zapp"],"2026-11-22":["Berg","LaB","Zapp"],"2026-11-23":["Mac","Rai","Rom"],"2026-11-24":["LaB","Pich","Zapp"],"2026-11-25":["Mac","Rai","Rom"],"2026-11-26":["Ange","Mang","Pich"],"2026-11-27":["LaB","Mac","Rom"],"2026-11-28":["Ange","Mang","Rai"],"2026-11-29":["Ange","Mang","Rai"],"2026-11-30":["Berg","Mac","Zapp"],"2026-12-01":["Ange","Mang","Pich"],"2026-12-02":["Berg","LaB","Zapp"],"2026-12-03":["Mac","Rai","Rom"],"2026-12-04":["Ange","Mang","Pich"],"2026-12-05":["LaB","Mac","Rom"],"2026-12-06":["LaB","Mac","Rom"],"2026-12-07":["Pich","Rai","Zapp"],"2026-12-08":["Ange","Berg","Mang"],"2026-12-09":["LaB","Rai","Rom"],"2026-12-10":["LaB","Mac","Zapp"],"2026-12-11":["Berg","Rai","Rom"],"2026-12-12":["Ange","Pich","Zapp"],"2026-12-13":["Ange","Pich","Zapp"],"2026-12-14":["Berg","Mac","Mang"],"2026-12-15":["LaB","Rai","Rom"],"2026-12-16":["Berg","Mac","Zapp"],"2026-12-17":["LaB","Rai","Rom"],"2026-12-18":["Berg","Pich","Zapp"],"2026-12-19":["Mac","Berg","Rom"],"2026-12-20":["Mac","Berg","Rom"],"2026-12-21":["Ange","LaB","Mang"],"2027-01-08":["LaB","Rai","Rom"],"2027-01-09":["Rai","Mang","Pich"],"2027-01-10":["Rai","Mang","Pich"]}}</script>
+<script>
+const S=JSON.parse(document.getElementById('stateData').textContent);
+let OWNER=false,dirty=false,tab='mesi',sel=null;
+const ids=()=>Object.keys(S.people),$=s=>document.querySelector(s);
+const Pd=s=>new Date(s+'T00:00:00Z'),iso=d=>d.toISOString().slice(0,10);
+const add=(s,n)=>{const d=Pd(s);d.setUTCDate(d.getUTCDate()+n);return iso(d)};
+const dow=s=>Pd(s).getUTCDay();
+const DN=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+const MN=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const act=s=>S.periods.some(p=>s>=p.from&&s<=p.to);
+const typ=s=>{const w=dow(s);return w==0||w==6?'we':w==4?'gio':w==2?'mar':'com'};
+const TL={we:'Weekend',gio:'Giovedì ★★',mar:'Martedì ★',com:'Comune'};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=s=>DN[dow(s)]+' '+s.slice(8)+'/'+s.slice(5,7);
+const chip=i=>{const p=S.people[i];return p?`<span class="chip" style="--c:${esc(p.c)}">${esc(p.s)} <b class="nm">${esc(p.n)}</b></span>`:''};
+function range(){const f=S.periods.map(p=>p.from).filter(Boolean).sort()[0],t=S.periods.map(p=>p.to).filter(Boolean).sort().pop();if(!f||!t)return[];const e=Pd(t),end=iso(new Date(Date.UTC(e.getUTCFullYear(),e.getUTCMonth()+1,0))),r=[];for(let d=f;d<=end;d=add(d,1))r.push(d);return r}
+function calc(){const r=range(),st={},C={},last={};ids().forEach(i=>{C[i]={G:0,we:0,gio:0,mar:0,com:0,F:0,C:0};last[i]=''});
+r.forEach((d,x)=>{st[d]={};if(!act(d))return;const g=S.guards[d]||[],w=dow(d)==0||dow(d)==6,first=!(x>0&&act(r[x-1]));let fs=[];
+if(!w){const ng=ids().filter(i=>!g.includes(i));
+if(first){const nx=r[x+1]&&act(r[x+1])?(S.guards[r[x+1]]||[]):null;if(nx){const pf=ng.filter(i=>!nx.includes(i));fs=[...pf,...ng.filter(i=>!pf.includes(i))].slice(0,3)}}
+else fs=ng.sort((a,b)=>(last[a]<last[b]?1:last[a]>last[b]?-1:0)||C[a].F-C[b].F).slice(0,3).filter(i=>last[i])}
+ids().forEach(i=>{const v=g.includes(i)?'G':fs.includes(i)?'F':'C';st[d][i]=v;C[i][v]++;if(v=='G')C[i][typ(d)]++});
+g.forEach(i=>{if(last[i]!==undefined)last[i]=d})});return{r,st,C}}
+function mesi(r){let h='';if(!r.length)return h;let y=+r[0].slice(0,4),m=+r[0].slice(5,7)-1;const l=r[r.length-1],ey=+l.slice(0,4),em=+l.slice(5,7)-1;
+while(y<ey||(y==ey&&m<=em)){const n=new Date(Date.UTC(y,m+1,0)).getUTCDate(),lead=(new Date(Date.UTC(y,m,1)).getUTCDay()+6)%7;
+h+=`<h2>${MN[m]} ${y}</h2><div class="cal">`+['Lun','Mar','Mer','Gio','Ven','Sab','Dom'].map(x=>`<b class="hd">${x}</b>`).join('')+'<i></i>'.repeat(lead);
+for(let d=1;d<=n;d++){const s=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,a=act(s);
+h+=`<div class="d ${typ(s)} ${a?'on':'off'}" data-d="${s}"><span class="n">${d}</span>${a?(S.guards[s]||[]).map(chip).join(''):''}</div>`}
+h+='</div>';if(++m>11){m=0;y++}}return h}
+function tabella(r,st,fc){const ch=(s,v)=>ids().filter(i=>st[s][i]==v).map(chip).join('')||'<span class="mut">—</span>';
+return `<div class="sc"><table><tr><th>Data</th><th>Tipo</th><th>Guardia</th>${fc?'<th>Franca</th><th>Comandata</th>':''}</tr>`+
+r.map(s=>{const a=act(s);return `<tr class="${typ(s)} ${a?'on':'off'}" data-d="${s}"><td>${fmt(s)}</td><td class="mut">${TL[typ(s)]}</td><td>${a?ch(s,'G'):'<span class="mut">fuori periodo</span>'}</td>${fc?`<td>${ch(s,'F')}</td><td>${ch(s,'C')}</td>`:''}</tr>`}).join('')+'</table></div>'}
+function cont(C){const k=['G','we','gio','mar','com','F','C'];
+return `<div class="sc"><table><tr><th>Nome</th><th>Sq.</th><th>Guardie tot.</th><th>Weekend (gg)</th><th>Gio</th><th>Mar</th><th>Lun/Mer/Ven</th><th>Franca</th><th>Comandata</th></tr>`+
+ids().map(i=>`<tr><td>${chip(i)}</td><td>${esc(S.people[i].t)}</td>${k.map(x=>`<td>${C[i][x]}</td>`).join('')}</tr>`).join('')+
+`<tr><th colspan="2">Totale</th>${k.map(x=>`<th>${ids().reduce((a,i)=>a+C[i][x],0)}</th>`).join('')}</tr></table></div><p class="mut">Regola: ogni giorno 3 di guardia, 3 franchi e 3 di comandata. I franchi sono chi ha fatto guardia più di recente (e oggi non è di guardia); se uno è di guardia due giorni di fila, il posto di franco passa al successivo in ordine di guardia più recente, a parità a chi ha meno franchi. Tutti gli altri sono di comandata. Sabato e domenica non ci sono franchi (tutti i non di guardia sono di comandata). Il primo giorno di ogni periodo sono franchi i 3 che il giorno dopo sono di comandata.</p>`}
+function sett(){const T=Object.keys(S.teams);
+return `<h2>Persone</h2><div class="sc"><table><tr><th>Nome</th><th>Simbolo</th><th>Colore</th><th>Squadra</th></tr>`+ids().map(i=>`<tr><td><input data-p="${i}" data-k="n" value="${esc(S.people[i].n)}"></td><td><input class="sy" data-p="${i}" data-k="s" value="${esc(S.people[i].s)}"></td><td><input type="color" data-p="${i}" data-k="c" value="${esc(S.people[i].c)}"></td><td><select data-p="${i}" data-k="t">${T.map(k=>`<option value="${k}" ${S.people[i].t==k?'selected':''}>${esc(S.teams[k])}</option>`).join('')}</select></td></tr>`).join('')+`</table></div>
+<h2>Squadre</h2>${T.map(k=>`<div><input data-tm="${k}" value="${esc(S.teams[k])}"></div>`).join('')}
+<h2>Periodi</h2>${S.periods.map((p,x)=>`<div class="bar" style="margin:4px 0">dal <input type="date" data-pi="${x}" data-k="from" value="${p.from}"> al <input type="date" data-pi="${x}" data-k="to" value="${p.to}"><button data-del="${x}">Elimina</button></div>`).join('')}
+<button id="addp">+ Nuovo periodo</button>
+<p class="mut">Per cambiare le guardie di un giorno clicca sul giorno (Mesi o tabelle). Le modifiche restano in bozza finché non premi “Salva e pubblica”.</p>`}
+function render(){const {r,st,C}=calc();
+const tabs=[['mesi','Mesi'],['giorni','Giorno per giorno'],['fc','Franca / Comandata'],['cont','Contatori']];if(OWNER)tabs.push(['sett','Impostazioni']);
+let b=tab=='mesi'?mesi(r):tab=='giorni'?tabella(r,st,0):tab=='fc'?tabella(r,st,1):tab=='cont'?cont(C):sett();
+$('#app').className=OWNER?'edit':'';
+$('#app').innerHTML=`<div class="bar"><h1>Turni di guardia</h1>${OWNER?`<span class="mut">Modifica attiva (solo tu)</span>${dirty?'<button class="on" id="save">💾 Salva e pubblica</button>':''}`:'<span class="mut">Sola lettura · si aggiorna da solo</span>'}</div>
+<div class="leg">${ids().map(chip).join('')}</div><div class="mut">Bordi: <span style="color:#ef4444">■</span> weekend · <span style="color:#f59e0b">■</span> giovedì · <span style="color:#eab308">■</span> martedì</div>
+<div class="tabs">${tabs.map(t=>`<button data-t="${t[0]}" class="${tab==t[0]?'on':''}">${t[1]}</button>`).join('')}</div>${b}`;
+const m=$('#modal');if(!sel){m.className='';m.innerHTML='';return}
+const cur=new Set(S.guards[sel]||[]);m.className='ov';
+m.innerHTML=`<div class="box"><b>${fmt(sel)}</b> <span class="mut">${TL[typ(sel)]}</span>${[0,1,2].map(k=>`<select class="sl" style="display:block;width:100%;margin:6px 0"><option value="">— nessuno —</option>${ids().map(i=>`<option value="${i}" ${[...cur][k]==i?'selected':''}>${esc(S.people[i].s)} ${esc(S.people[i].n)}</option>`).join('')}</select>`).join('')}<div>Riempi con: ${Object.keys(S.teams).map(k=>`<button data-fill="${k}">${esc(S.teams[k])}</button>`).join(' ')}</div><div class="row"><button class="on" id="ok">Applica</button><button id="no">Annulla</button></div></div>`}
+document.addEventListener('click',async e=>{const t=e.target,g=t.closest('[data-t],[data-d],[data-fill],[data-del],#ok,#no,#addp,#save');if(!g)return;
+if(g.dataset.t){tab=g.dataset.t;render()}
+else if(g.dataset.fill){{const m=ids().filter(i=>S.people[i].t==g.dataset.fill);document.querySelectorAll('#modal .sl').forEach((s,k)=>s.value=m[k]||'')}}
+else if(g.dataset.del!==undefined){S.periods.splice(+g.dataset.del,1);dirty=true;render()}
+else if(g.id=='ok'){S.guards[sel]=[...new Set([...document.querySelectorAll('#modal .sl')].map(s=>s.value).filter(Boolean))];sel=null;dirty=true;render()}
+else if(g.id=='no'){sel=null;render()}
+else if(g.id=='addp'){S.periods.push({from:'2027-01-01',to:'2027-01-02'});dirty=true;render()}
+else if(g.id=='save'){try{const a=await claude.use('artifact');if(!a)throw 0;const c=document.documentElement.cloneNode(true);c.querySelector('#stateData').textContent=JSON.stringify(S).replace(/</g,'\\u003c');c.querySelector('#app').innerHTML='';c.querySelector('#app').className='';c.querySelector('#modal').innerHTML='';c.querySelector('#modal').className='';g.textContent='Salvataggio…';await a.publish('<!doctype html>'+c.outerHTML)}catch(x){g.textContent='Errore, riprova'}}
+else if(g.dataset.d&&OWNER&&act(g.dataset.d)){sel=g.dataset.d;render()}});
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;if(d.p)S.people[d.p][d.k]=t.value;else if(d.tm)S.teams[d.tm]=t.value;else if(d.pi)S.periods[+d.pi][d.k]=t.value;else return;dirty=true;render()});
+render();
+(async()=>{try{const u=await claude.use('user');OWNER=!!(u&&u.isOwner&&u.isOwner());render()}catch(e){}})();
+</script>
+</body></html>
